@@ -270,6 +270,7 @@
 				
 				if (angular.isDefined(attrs.filecount)) {
 					scope.isFileCount = true;
+					elFileinput.className += 'full-width';
 				}
 
                 if(angular.isDefined(attrs.progress)){

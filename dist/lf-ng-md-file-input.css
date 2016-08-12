@@ -155,6 +155,23 @@
   min-height: initial;
   min-width: 100px;
 }
+.lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button.full-width {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -moz-border-radius: none;
+  -webkit-border-radius: none;
+  border-radius: none;
+  margin: 0px;
+  padding: 0px 8px 0px 8px;
+  min-height: initial;
+  min-width: 100%;
+}
 .lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button.lf-ng-md-file-input-button-brower {
   -moz-border-radius: 0 5px 5px 0;
   -webkit-border-radius: 0;
