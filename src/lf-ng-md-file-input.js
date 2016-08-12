@@ -195,7 +195,7 @@
                                     '<div class="clearfix" style="clear:both"></div>',
                                 '</div>',
                             '</div>',
-							'<div ng-show="isFileCount" flex>Total Selected Files: {{totalSelected || 0}} </div>',
+							'<div ng-show="isFileCount" flex>Total Selected Files: {{fileCount || 0}} </div>',
                             '<div layout="row" class="lf-ng-md-file-input-container" >',
                                 '<div ng-hide="isFileCount" class="lf-ng-md-file-input-caption" layout="row" layout-align="start center" flex ng-class="{\'disabled\':isDisabled}" >',
                                     '<md-icon class="lf-icon" ng-class="strCaptionIconCls"></md-icon>',
@@ -211,12 +211,13 @@
                                     '<md-icon class="lf-icon" ng-class="strRemoveIconCls"></md-icon> ',
                                     '{{strCaptionRemove}}',
                                 '</md-button>',
-                                '<md-button ng-disabled="isDisabled" ng-click="openDialog($event, this)" class="md-raised md-primary lf-ng-md-file-input-button lf-ng-md-file-input-button-brower" >',
+                                '<md-button id="lf-ng-md-file-input-button" ng-disabled="isDisabled" ng-click="openDialog($event, this)" class="md-raised md-primary lf-ng-md-file-input-button lf-ng-md-file-input-button-brower lf-ng-md-file-input-button-default-width lf-ng-md-file-input-button-full-width">',
                                     '<md-icon class="lf-icon" ng-class="strBrowseIconCls"></md-icon> ',
                                     '{{strCaptionBrowse}}',
                                     '<input type="file" aria-label="{{strAriaLabel}}" accept="{{accept}}" ng-disabled="isDisabled" class="lf-ng-md-file-input-tag" />',//,onchange="angular.element(this).scope().onFileChanged(this)"/>',
                                 '</md-button>',
-                            '</div>',
+                        
+                        '</div>',
 
                         '</div>'].join(''),
             replace: true,
@@ -239,6 +240,7 @@
                 var elFileinput = angular.element(element[0].querySelector('.lf-ng-md-file-input-tag'));
                 var elDragview  = angular.element(element[0].querySelector('.lf-ng-md-file-input-drag'));
                 var elThumbnails = angular.element(element[0].querySelector('.lf-ng-md-file-input-thumbnails'));
+                var elButton = angular.element(element[0].querySelector('#lf-ng-md-file-input-button'));
 
                 var isCustomCaption = false;
                 //var intFilesCount = 0;
@@ -270,8 +272,10 @@
 				
 				if (angular.isDefined(attrs.filecount)) {
 					scope.isFileCount = true;
-					elFileinput.className += 'full-width';
-				}
+                    elButton.removeClass('lf-ng-md-file-input-button-default-width');
+				} else {
+                     elButton.removeClass('lf-ng-md-file-input-button-full-width');
+                }
 
                 if(angular.isDefined(attrs.progress)){
                     scope.isProgress = true;
@@ -460,7 +464,8 @@
 					if(scope.isDisabled){
 						return;
 					}
-
+                  
+                    scope.fileCount = 0;
 					scope.lfFiles.length = 0;
 
 					elThumbnails.empty();
@@ -570,7 +575,6 @@
 							tplPreview = '<img src="'+lfDataUrl+'" >';
 
 						}else if(lfTagType == 'video'){
-
 							tplPreview  =  ['<video controls>',
 								'<source src="'+lfDataUrl+'" type="'+lfFileType+'">',
 							'</video>'].join('');
