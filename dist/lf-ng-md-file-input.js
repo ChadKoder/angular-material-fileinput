@@ -137,7 +137,7 @@
                 ctrl.$validators.totalsize = function(modelValue,viewValue) {
                 	if(!modelValue){
       					return false;
-      				}
+      				} 
       				var intTotal = 0;
       				angular.forEach(modelValue,function(obj,idx){
       					intTotal = intTotal + obj.lfFile.size;
@@ -198,9 +198,10 @@
                             '<div layout="row" class="lf-ng-md-file-input-container" >',
                                 '<div class="lf-ng-md-file-input-caption" layout="row" layout-align="start center" flex ng-class="{\'disabled\':isDisabled}" >',
                                     '<md-icon class="lf-icon" ng-class="strCaptionIconCls"></md-icon>',
-                                    '<div flex class="lf-ng-md-file-input-caption-text-default" ng-show="isFilesNull">',
+                                    '<div ng-hide="isFileCount" flex class="lf-ng-md-file-input-caption-text-default" ng-show="isFilesNull">',
                                         '{{strCaptionPlaceholder}}',
                                     '</div>',
+									'<div ng-show="isFileCount" flex>Total Selected Files: {{totalSelected}} </div>',
                                     '<div flex class="lf-ng-md-file-input-caption-text" ng-hide="isFilesNull">',
                                         '{{strCaption}}',
                                     '</div>',
@@ -240,7 +241,8 @@
                 var elThumbnails = angular.element(element[0].querySelector('.lf-ng-md-file-input-thumbnails'));
 
                 var isCustomCaption = false;
-                var intFilesCount = 0;
+                //var intFilesCount = 0;
+				scope.fileCount = 0;
 
                 scope.intLoading = 0;
                 scope.floatProgress = 0;
@@ -249,6 +251,7 @@
                 scope.isDrag = false;
                 scope.isMutiple = false;
                 scope.isProgress = false;
+				scope.isFileCount = false;
 
                 if(angular.isDefined(attrs.preview)){
                     scope.isPreview = true;
@@ -264,6 +267,10 @@
                 }else{
                     elFileinput.removeAttr('multiple');
                 }
+				
+				if (angular.isDefined(attrs.filecount)) {
+					scope.isFileCount = true;
+				}
 
                 if(angular.isDefined(attrs.progress)){
                     scope.isProgress = true;
@@ -410,7 +417,7 @@
                     scope.floatProgress = 0;
 
                     if(scope.isMutiple){
-                        intFilesCount = files.length;
+                        scope.fileCount = files.length;
                         for(var i=0;i<files.length;i++){
                             var file = files[i];
                             if(file.type.match(regexp)){
@@ -421,7 +428,7 @@
                             }
                         }
                     }else{
-                        intFilesCount = 1;
+                        scope.fileCount = 1;
                         for(var i=0;i<files.length;i++){
                             var file = files[i];
                             if(file.type.match(regexp)){
@@ -493,7 +500,7 @@
                     scope.floatProgress = 0;
 
 					if(scope.isMutiple){
-                        intFilesCount = files.length;
+                        scope.fileCount = files.length;
                         for(var i=0;i<files.length;i++){
                             var file = files[i];
                             if(names.indexOf(file.name) != -1){
@@ -502,7 +509,7 @@
                             setTimeout(readFile(file), i*100);
                         }
                     }else{
-                        intFilesCount = 1;
+                        scope.fileCount = 1;
                         for(var i=0;i<files.length;i++){
                             var file = files[i];
                             scope.removeAllFiles();
@@ -675,13 +682,13 @@
 							'result':reader.result
 						});
                         scope.intLoading--;
-                        scope.floatProgress = (intFilesCount-scope.intLoading)/intFilesCount*100;
+                        scope.floatProgress = (scope.fileCount-scope.intLoading)/scope.fileCount*100;
 					};
 
 					reader.onerror = function(event){
 						deferred.reject(reader.result);
                         scope.intLoading--;
-                        scope.floatProgress = (intFilesCount-scope.intLoading)/intFilesCount*100;
+                        scope.floatProgress = (scope.filecount-scope.intLoading)/scope.fileCount*100;
 					};
 
 					reader.onprogress = function(event){
