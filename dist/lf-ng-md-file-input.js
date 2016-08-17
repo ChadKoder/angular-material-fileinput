@@ -199,7 +199,7 @@
 				'</div>',
 				 '<div layout="column" class="lf-ng-md-file-input-preview-container" ng-class="{\'disabled\':isDisabled}" ng-show="isPreview && !isFilesNull">',
 					'<md-button aria-label="remove all files" class="close lf-ng-md-file-input-x" ng-click="removeAllFiles($event)" ng-hide="isFilesNull || !isPreview" >&times;</md-button>',
-					'<div class="lf-ng-md-file-input">',
+					'<div class="lf-ng-md-file-input-drag">',
 						'<div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview">',
 						'</div>',
 						'<div class="clearfix" style="clear:both"></div>',
@@ -347,7 +347,7 @@
 				if(scope.lfRemoveLabel){
 					scope.strCaptionRemove = scope.lfRemoveLabel;
 				}
-
+               
 				scope.openDialog = function(event, el) {
 					if(event){
 						$timeout(function() {
