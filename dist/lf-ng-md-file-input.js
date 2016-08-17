@@ -204,7 +204,7 @@
 						'<div class="clearfix" style="clear:both"></div>',
 					'</div>',
 				'</div>',
-			'</div>'].join(''),    
+			'</div>'].join(''),
             replace: true,
             require:"ngModel",
             scope:{
@@ -228,7 +228,6 @@
                 var isCustomCaption = false;
 				
 				scope.fileCount = 0;
-
                 scope.intLoading = 0;
                 scope.floatProgress = 0;
 
@@ -383,7 +382,9 @@
 
 					scope.lfFiles.every(function(obj,idx){
 						if(obj.lfFileName == name){
+							alert('removing file: ' + name);
                             obj.element.remove();
+							scope.filecount -= 1;
 							scope.lfFiles.splice(idx,1);
 							return false;
 						}
