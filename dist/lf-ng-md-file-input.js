@@ -399,11 +399,11 @@
 
 					var files = e.files || e.target.files;
 					
-					alert('e.files ==> ' + e.files.length + ');
+					alert('e.files ==> ' + e.files.length);
 					alert('e.target.files ---> ' + e.target.files.length);
 
 					var names = scope.lfFiles.map(function(obj){
-						alert (obj.jfFileName);
+						alert(obj.jfFileName);
 						return obj.lfFileName;
 					});
 					
