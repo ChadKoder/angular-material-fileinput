@@ -198,15 +198,17 @@
 					'</md-button>',
 				'</div>',
 				 '<div layout="column" class="lf-ng-md-file-input-preview-container" ng-class="{\'disabled\':isDisabled}" ng-show="isDrag || (isPreview && !isFilesNull)">',
+					'<md-button aria-label="remove all files" class="close lf-ng-md-file-input-x" ng-click="removeAllFiles($event)" ng-hide="isFilesNull || !isPreview" >&times;</md-button>',
 					'<div class="lf-ng-md-file-input-drag">',
 						'<div layout="row" layout-align="center center" class="lf-ng-md-file-input-drag-text-container" ng-show="(isFilesNull || !isPreview) && isDrag">',
 							'<div class="lf-ng-md-file-input-drag-text">{{strCaptionDragAndDrop}}</div>',
 						'</div>',
 						'<div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview">',
+						'</div>',
 						'<div class="clearfix" style="clear:both"></div>',
 					'</div>',
 				'</div>',
-			'</div>'].join(''),
+			'</div>'].join(''),    
             replace: true,
             require:"ngModel",
             scope:{
@@ -230,7 +232,7 @@
                 var elButton = angular.element(element[0].querySelector('#lf-ng-md-file-input-button'));
 
                 var isCustomCaption = false;
-                //var intFilesCount = 0;
+				
 				scope.fileCount = 0;
 
                 scope.intLoading = 0;
@@ -305,7 +307,6 @@
                 scope[attrs.ngModel] = scope.lfFiles;
 
                 scope.$watch('lfFiles.length',function(newVal,oldVal){
-					scope.filecount = newVal;
             		ctrl.$validate();
             	});
 
@@ -448,7 +449,7 @@
 				};
 
 				scope.removeAllFiles = function(event){
-				
+
 					if(scope.isDisabled){
 						return;
 					}
@@ -467,12 +468,11 @@
 					if(scope.isDisabled){
 						return;
 					}
-					
+
 					scope.lfFiles.every(function(obj,idx){
 						if(obj.lfFileName == name){
                             obj.element.remove();
 							scope.lfFiles.splice(idx,1);
-							scope.filecount -= 1;
 							return false;
 						}
 						return true;
@@ -560,6 +560,7 @@
 						var tplPreview = '';
 
 						if(lfTagType == 'image'){
+
 							tplPreview = '<img src="'+lfDataUrl+'" >';
 
 						}else if(lfTagType == 'video'){
@@ -656,6 +657,7 @@
 				};
 
 				var readAsDataURL = function (file,index) {
+
 					var deferred = $q.defer();
 
 					var reader = new FileReader();
@@ -717,5 +719,4 @@
 		};
 
     }]);
-
 })(window,window.angular);
