@@ -382,7 +382,6 @@
 
 					scope.lfFiles.every(function(obj,idx){
 						if(obj.lfFileName == name){
-							alert('removing file: ' + name);
                             obj.element.remove();
 							scope.filecount -= 1;
 							scope.lfFiles.splice(idx,1);
@@ -399,8 +398,13 @@
 
 					var files = e.files || e.target.files;
 					
-					alert('e.files ==> ' + e.files.length);
-					alert('e.target.files ---> ' + e.target.files.length);
+                    if (e.files) {
+                        alert('e.files --> ' + e.files.length);
+                    }
+                        
+                    if (e.target.files){
+                        alert('e.target.files --> ' + e.target.files.length);
+                    }
 
 					var names = scope.lfFiles.map(function(obj){return obj.lfFileName;});
 					
