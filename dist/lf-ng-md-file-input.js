@@ -405,7 +405,7 @@
                     if (e.target.files){
                         //alert('e.target.files --> ' + e.target.files.length);
 						for (var tst = 0; tst < e.target.files.length; tst++){
-							alert('file----> ' + JSON.stringify(e.target.files[tst]);
+							alert('file----> ' + JSON.stringify(e.target.files[tst]));
 						}
                     }
 
