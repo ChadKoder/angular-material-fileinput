@@ -187,7 +187,7 @@
 			'<div layout="column" class="lf-ng-md-file-input" ng-model="'+genLfObjId()+'">',
 				'<div ng-show="isFileCount" flex>Total Selected Files: {{fileCount || 0}} </div>',
 				'<div layout="row" class="lf-ng-md-file-input-container" >',
-					'<md-button id="lf-ng-md-file-input-button" ng-disabled="isDisabled" ng-click="openDialog($event, this)" class="md-raised md-primary lf-ng-md-file-input-button lf-ng-md-file-input-button-brower lf-ng-md-file-input-button-default-width lf-ng-md-file-input-button-full-width">',
+					'<md-button id="lf-ng-md-file-input-button" ng-disabled="isDisabled" ng-click="openDialog($event, this)" class="md-raised md-primary lf-ng-md-file-input-button lf-ng-md-file-input-button-brower lf-ng-md-file-input-button">',
 						'<md-icon class="lf-icon" ng-class="strBrowseIconCls"></md-icon> ',
 						'{{strCaptionBrowse}}',
 						'<input type="file" aria-label="{{strAriaLabel}}" accept="{{accept}}" ng-disabled="isDisabled" class="lf-ng-md-file-input-tag" />',//,onchange="angular.element(this).scope().onFileChanged(this)"/>',

@@ -1,6 +1,7 @@
 .lf-ng-md-file-input {
   margin-top: 5px;
   margin-bottom: 5px;
+  width: 100%;
 }
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container {
   -moz-border-radius: 5px;
@@ -138,22 +139,8 @@
 .lf-ng-md-file-input .lf-ng-md-file-input-container .lf-icon {
   background-size: cover;
 }
-.lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button.lf-ng-md-file-input-button-default-width{
-  display: inline-block;
-  vertical-align: middle;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -moz-border-radius: none;
-  -webkit-border-radius: none;
-  border-radius: none;
-  margin: 0px;
-  padding: 0px 8px 0px 8px;
-  min-height: initial;
-  min-width: 100px;
-  width: 50%;
-}
-.lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button.lf-ng-md-file-input-button-full-width{
+
+.lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button.lf-ng-md-file-input-button{
     display: inline-block;
     vertical-align: middle;
     -moz-box-shadow: none;
