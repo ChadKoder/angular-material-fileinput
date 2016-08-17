@@ -399,13 +399,14 @@
 
 					var files = e.files || e.target.files;
 					
-					alert('e.files ==> ' + e.files.length);
+					alert('e.files ==> ' + e.files.length + ');
 					alert('e.target.files ---> ' + e.target.files.length);
 
-					var names = scope.lfFiles.map(function(obj){
-						alert(obj.jfFileName);
-						return obj.lfFileName;
-					});
+					var names = scope.lfFiles.map(function(obj){return obj.lfFileName;});
+					
+					for (var test = 0; test <= names.length; test++){
+						alert('name: ' + names[test]);
+					}
 					
 					if(files.length <= 0){
 						return;
