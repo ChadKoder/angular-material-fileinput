@@ -198,7 +198,6 @@
 					'</md-button>',
 				'</div>',
 				 '<div layout="column" class="lf-ng-md-file-input-preview-container" ng-class="{\'disabled\':isDisabled}" ng-show="isPreview && !isFilesNull">',
-					'<md-button aria-label="remove all files" class="close lf-ng-md-file-input-x" ng-click="removeAllFiles($event)" ng-hide="isFilesNull || !isPreview" >&times;</md-button>',
 					'<div class="lf-ng-md-file-input-drag">',
 						'<div class="lf-ng-md-file-input-thumbnails" ng-show="isPreview">',
 						'</div>',
