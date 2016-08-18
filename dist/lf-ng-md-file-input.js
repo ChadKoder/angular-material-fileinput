@@ -295,6 +295,7 @@
                 scope[attrs.ngModel] = scope.lfFiles;
 
                 scope.$watch('lfFiles.length',function(newVal,oldVal){
+					scope.fileCount = newVal;
             		ctrl.$validate();
             	});
 
@@ -375,15 +376,14 @@
 				};
 
 				scope.removeFileByName = function(name,event){
-
 					if(scope.isDisabled){
 						return;
 					}
 
 					scope.lfFiles.every(function(obj,idx){
-						if(obj.lfFileName == name){
+						if(obj.uniqueFileName == name){
                             obj.element.remove();
-							scope.filecount -= 1;
+							scope.fileCount -= 1;
 							scope.lfFiles.splice(idx,1);
 							return false;
 						}
@@ -398,22 +398,9 @@
 
 					var files = e.files || e.target.files;
 					
-                    if (e.files) {
-                        alert('e.files --> ' + e.files.length);
-                    }
-                        
-                    if (e.target.files){
-                        //alert('e.target.files --> ' + e.target.files.length);
-						for (var tst = 0; tst < e.target.files.length; tst++){
-							alert('file----> ' + JSON.stringify(e.target.files[tst]));
-						}
-                    }
-
-					var names = scope.lfFiles.map(function(obj){return obj.lfFileName;});
-					
-					for (var test = 0; test <= names.length; test++){
-						alert('name: ' + names[test]);
-					}
+					var names = scope.lfFiles.map(function(obj){
+						return obj.lfFileName;
+					});
 					
 					if(files.length <= 0){
 						return;
@@ -428,14 +415,14 @@
                             if(names.indexOf(file.name) != -1){
                                 scope.removeFileByName(file.name);
                             }
-                            setTimeout(readFile(file), i*100);
+                            setTimeout(readFile(file, i), i*100);
                         }
                     }else{
                         scope.fileCount = 1;
                         for(var i=0;i<files.length;i++){
                             var file = files[i];
                             scope.removeAllFiles();
-                            setTimeout(readFile(file), 100);
+                            setTimeout(readFile(file, i), 100);
                             break;
                         }
                     }
@@ -459,13 +446,14 @@
                     }
                 };
 
-				var readFile = function(file){
+				var readFile = function(file, fileIndex){
 
                     scope.intLoading++;
 
 					readAsDataURL(file).then(function(result){
 
 						var lfFile = file;
+						var uniqueFileName = file.name + '_' + fileIndex;
 						var lfFileName = file.name;
 						var lfFileType = file.type;
 						var lfTagType = parseFileType(file);
@@ -475,14 +463,15 @@
                             "key":genLfObjId(),
                             "lfFile":lfFile,
                             "lfFileName":lfFileName,
-                            "lfDataUrl":lfDataUrl
+                            "lfDataUrl":lfDataUrl,
+							"uniqueFileName": uniqueFileName
                         };
 
 						scope.lfFiles.push(lfFileObj);
 
 						var elFrame = angular.element('<div class="lf-ng-md-file-input-frame" ng-click="onFileClick(\''+lfFileObj.key+'\')"></div>');
 
-						var elFrameX = angular.element('<div aria-label="remove '+file.name+'" class="lf-ng-md-file-input-x" ng-click="removeFileByName(\''+file.name+'\',$event)">&times;<div>');
+						var elFrameX = angular.element('<div aria-label="remove '+file.name+'" class="lf-ng-md-file-input-x" ng-click="removeFileByName(\''+uniqueFileName+'\',$event)">&times;<div>');
 
 						var tplPreview = '';
 
@@ -629,7 +618,7 @@
                         
 						deferred.reject(reader.result);
                         scope.intLoading--;
-                        scope.floatProgress = (scope.filecount-scope.intLoading)/scope.fileCount*100;
+                        scope.floatProgress = (scope.fileCount-scope.intLoading)/scope.fileCount*100;
 					};
 
 					reader.onprogress = function(event){
